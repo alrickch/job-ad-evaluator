@@ -47,9 +47,18 @@ class JobAdAnalyzer:
         
         try:
             response = self.model.generate_content(prompt)
+
+            # Clean the response in case it contains non json elements
+            response_text = response.text.strip()
+            import re
+            json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+            if json_match:
+                response_text = json_match.group(0)            
+
             # Attempt to parse the response
-            analysis = json.loads(response.text)
+            analysis = json.loads(response_text)
             return analysis
+        
         except Exception as e:
             return {
                 "needs_rewrite": True,
