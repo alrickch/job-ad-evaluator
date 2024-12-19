@@ -4,6 +4,7 @@ import pandas as pd
 from google.generativeai import GenerativeModel
 import google.generativeai as genai
 import json
+import re
 
 class JobAdAnalyzer:
     def __init__(self, api_key):
@@ -50,7 +51,7 @@ class JobAdAnalyzer:
 
             # Clean the response in case it contains non json elements
             response_text = response.text.strip()
-            import re
+            
             json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
             if json_match:
                 response_text = json_match.group(0)            
@@ -123,7 +124,7 @@ def main():
             # Detailed results
             st.subheader("Detailed Analysis")
             for index, row in results_df.iterrows():
-                st.write(f"{row['reference_id']}, Reasoning: {row['reasoning']}")
+                st.write(f"{row['reference_id']}, {row['needs_rewrite']}, Reasoning: {row['reasoning']}")
             
             # Download options
             csv = results_df.to_csv(index=False)
