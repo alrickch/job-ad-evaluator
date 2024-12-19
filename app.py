@@ -113,7 +113,7 @@ def main():
             
             # Detailed results
             st.subheader("Detailed Analysis")
-            st.dataframe(results_df)
+            st.write(results_df)
             
             # Download options
             csv = results_df.to_csv(index=False)
