@@ -113,7 +113,8 @@ def main():
             
             # Detailed results
             st.subheader("Detailed Analysis")
-            st.write(results_df)
+            for index, row in results_df.iterrows():
+                st.write(f"{row['reference_id']}, Reasoning: {row['reasoning']}")
             
             # Download options
             csv = results_df.to_csv(index=False)
