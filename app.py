@@ -103,7 +103,7 @@ def main():
         return
     
     # File uploader
-    uploaded_file = st.file_uploader("Choose an Excel or CSV file", type=['csv', 'xlsx'])
+    uploaded_file = st.file_uploader("Choose an Excel or CSV file. The file must have a column labeled reference_id and a column labeled job_ad_text.", type=['csv', 'xlsx'])
     
     if uploaded_file is not None:
         try:
