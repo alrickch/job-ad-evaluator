@@ -36,10 +36,12 @@ class JobAdAnalyzer:
         
         Criteria for evaluation:
         1. Clarity of job responsibilities
-        2. Specificity of required skills
+        2. Clarity of required skills
         3. Professional language and tone
         4. Completeness of job description
 
+        Note that in this specific case of Job Ad, the following topics should not be mentioned in the response: it is NOT necessary to include multiple currencies for salary, it is NOT necessary to include contact details, it is NOT necessary to include a company logo, it is NOT necessary to include information about the application process, it is NOT necessary for quantifiable targets to be included, it is NOT necessary for extensive information about the company to be included as long as some company information is included.
+        
         Job Advertisement:
         {job_ad_text}
 
@@ -48,7 +50,10 @@ class JobAdAnalyzer:
             "needs_rewrite": true/false, "reasoning": "Brief concise explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in, and what the recommended changes are. The response should include \n\n1. Clarity of job responsibilities: \n\n2. Specificity of required skills: \n\n3. Professional language and tone: \n\n4. Completeness of Job Description: "
         }}
 
-        Here is an example response:
+        Here are example responses:
+        Example 1:
+        {{ "needs_rewrite": false, "reasoning": "This job advertisement is clearly written, has specific details on day to day tasks the expected benefits and the company culture, and is effective overall. \n\n1. Clarity of job responsibilities: Responsibilities are listed and decribe tools and tasks. For example, \n\n2. Specificity of required skills: The skills section is detailed and lists out the types of skills needed. The required level of proficiency in Japanese and English is precise. \n\n3. Professional language and tone: The language is generally professional, and the information is presented in an organized manner. \n\n4. Completeness of job description: The job description is complete and includes comprehensive information about benefits, company culture and more.}}
+        Example 2:
         {{ "needs_rewrite": true, "reasoning": "This job advertisement needs significant rewriting. While it lists a salary range, which is positive, it lacks clarity in several key areas. \n\n1. Clarity of job responsibilities: The job description is vague. Phrases like "株式報酬制度等の制度設計に関するアドバイス" are not easily understood by non-Japanese speakers and even Japanese speakers may need more detail. Specific tasks and responsibilities should be listed. \n\n2. Specificity of required skills: The required skills are too general. Instead of "株式報酬に関する業務経験や知見のある方", the ad should specify the number of years of experience, types of equity compensation plans worked with, and specific software or tools used. Similarly, the legal knowledge requirements need more detail. \n\n3. Professional language and tone: While professional in tone, the ad is almost entirely in Japanese except for a few English phrases, creating inconsistency. The entire ad should be in either Japanese or English, depending on the target audience. \n\n4. Completeness of job description: The ad is missing crucial information such as company culture, benefits beyond work-from-home options, and the application process. It also lacks a compelling reason for candidates to apply. \n\nRecommended changes include providing detailed job responsibilities, quantifiable skills requirements, consistent language, a more comprehensive benefits package description, and a strong call to action." }}
 
         It is essential that the response has the correct JSON formatting. If there are quotes in the reasonsing, remember to use escape characters, \, before the quotes as that is needed in JSON formatting. Do not use any special characters such as bullet points in your JSON response.
