@@ -27,7 +27,7 @@ class JobAdAnalyzer:
         Returns:
             dict: Analysis results including needs_rewrite flag and reasoning
         """
-        prompt = f"""Evaluate this job advertisement and determine if it needs to be rewritten.
+        prompt = f"""You are an expert at writing convincing, attractive job ads to recruit candidates to companies. It is imperative to the company's success that you evaluate the quality of these job ads correctly. Evaluate this job advertisement and determine if it needs to be rewritten.
         
         Criteria for evaluation:
         1. Clarity of job responsibilities
@@ -39,11 +39,12 @@ class JobAdAnalyzer:
         Job Advertisement:
         {job_ad_text}
 
-        Provide a JSON response with the following structure:
+        Respond with a JSON object that follows this exact format, with no additional text:
         {{
-            "needs_rewrite": true/false,
-            "reasoning": "Brief explanation of why the job ad needs or does not need rewriting"
+            "needs_rewrite": true/false, "reasoning": "Brief explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in"
         }}
+
+        It is essential that the response has the correct JSON formatting.
         """
         
         try:
@@ -132,7 +133,7 @@ def main():
             # Detailed results
             st.subheader("Detailed Analysis")
             for index, row in results_df.iterrows():
-                st.write(f"{row['reference_id']}, {row['needs_rewrite']}, Reasoning: {row['reasoning']}")
+                st.write(f"{row['reference_id']}, Rewrite: {row['needs_rewrite']}, Reasoning: {row['reasoning']}")
             
             # Download options
             csv = results_df.to_csv(index=False)
