@@ -111,67 +111,71 @@ def main():
             if not all(col in df.columns for col in required_columns):
                 st.error(f"File must contain columns: {required_columns}")
                 return
-            
-            # Initialize analyzer
-            analyzer = JobAdAnalyzer(api_key)
-            
-            # Analyze job ads
-            results = []
-            progress_bar = st.progress(0)
-            for i, row in df.iterrows():
-                analysis = analyzer.analyze_job_ad(row['job_ad_text'])
-                results.append({
-                    'reference_id': row['reference_id'],
-                    'needs_rewrite': analysis['needs_rewrite'],
-                    'reasoning': analysis['reasoning']
-                })
-                progress_bar.progress((i + 1) / len(df))
-            
-            # Convert results to DataFrame
-            results_df = pd.DataFrame(results)
-            
-            # Separate job ads
-            rewrite_ads = results_df[results_df['needs_rewrite']]['reference_id'].tolist()
-            ok_ads = results_df[~results_df['needs_rewrite']]['reference_id'].tolist()
-            
-            # Display results
-            st.subheader("Analysis Results")
-            st.write(f"Total Job Ads: {len(results_df)}")
-            st.write(f"Job Ads Needing Rewrite: {len(rewrite_ads)}")
-            st.write(f"Job Ads OK to Post: {len(ok_ads)}")
-            
-            # Detailed results
-            st.subheader("Detailed Analysis")
-            for index, row in results_df.iterrows():
-                st.write(f"{row['reference_id']}")
-                st.write(f"Rewrite: {row['needs_rewrite']}")
-                st.write(f"Reasoning: {row['reasoning']}")
-            
-            # Download options
-            csv = results_df.to_csv(index=False)
-            st.download_button(
-                label="Download Full Results",
-                data=csv,
-                file_name='job_ad_analysis_results.csv',
-                mime='text/csv'
-            )
-            
-            # Separate download buttons for each category
-            col1, col2 = st.columns(2)
-            
-            with col1:
+
+            st.write(f"File loaded successfully. Found {len(df)} job ads.")
+
+            #Start Analysis Button
+            if st.button("Analyse Job Ads"):
+                # Initialize analyzer
+                analyzer = JobAdAnalyzer(api_key)
+                
+                # Analyze job ads
+                results = []
+                progress_bar = st.progress(0)
+                for i, row in df.iterrows():
+                    analysis = analyzer.analyze_job_ad(row['job_ad_text'])
+                    results.append({
+                        'reference_id': row['reference_id'],
+                        'needs_rewrite': analysis['needs_rewrite'],
+                        'reasoning': analysis['reasoning']
+                    })
+                    progress_bar.progress((i + 1) / len(df))
+                
+                # Convert results to DataFrame
+                results_df = pd.DataFrame(results)
+                
+                # Separate job ads
+                rewrite_ads = results_df[results_df['needs_rewrite']]['reference_id'].tolist()
+                ok_ads = results_df[~results_df['needs_rewrite']]['reference_id'].tolist()
+                
+                # Display results
+                st.subheader("Analysis Results")
+                st.write(f"Total Job Ads: {len(results_df)}")
+                st.write(f"Job Ads Needing Rewrite: {len(rewrite_ads)}")
+                st.write(f"Job Ads OK to Post: {len(ok_ads)}")
+                
+                # Detailed results
+                st.subheader("Detailed Analysis")
+                for index, row in results_df.iterrows():
+                    st.write(f"**Reference ID:** {row['reference_id']}")
+                    st.write(f"**Needs Rewrite:** {row['needs_rewrite']}")
+                    st.write(f"**Reasoning:** {row['reasoning']}")
+                
+                # Download options
+                csv = results_df.to_csv(index=False)
                 st.download_button(
-                    label="Download Job Ads to Rewrite",
-                    data='\n'.join(rewrite_ads),
-                    file_name='job_ads_to_rewrite.txt'
+                    label="Download Full Results",
+                    data=csv,
+                    file_name='job_ad_analysis_results.csv',
+                    mime='text/csv'
                 )
-            
-            with col2:
-                st.download_button(
-                    label="Download OK Job Ads",
-                    data='\n'.join(ok_ads),
-                    file_name='ok_job_ads.txt'
-                )
+                
+                # Separate download buttons for each category
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.download_button(
+                        label="Download Job Ads to Rewrite",
+                        data='\n'.join(rewrite_ads),
+                        file_name='job_ads_to_rewrite.txt'
+                    )
+                
+                with col2:
+                    st.download_button(
+                        label="Download OK Job Ads",
+                        data='\n'.join(ok_ads),
+                        file_name='ok_job_ads.txt'
+                    )
         
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
