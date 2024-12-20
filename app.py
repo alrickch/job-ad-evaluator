@@ -34,7 +34,6 @@ class JobAdAnalyzer:
         2. Specificity of required skills
         3. Professional language and tone
         4. Completeness of job description
-        5. Potential bias or exclusionary language
 
         Job Advertisement:
         {job_ad_text}
@@ -44,7 +43,7 @@ class JobAdAnalyzer:
             "needs_rewrite": true/false, "reasoning": "Brief explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in"
         }}
 
-        It is essential that the response has the correct JSON formatting.
+        It is essential that the response has the correct JSON formatting. If there are quotes in the reasonsing, remember to use escape characters, \, before the quotes as that is needed in JSON formatting.
         """
         
         try:
