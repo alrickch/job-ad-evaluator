@@ -49,6 +49,14 @@ class JobAdAnalyzer:
         try:
             response = self.model.generate_content(prompt)
 
+            #Handling for multi-part responses
+            if hasattr(response, 'parts'):
+                response_text = ' '.join(part.text for part in response.parts)
+            elif hasattr(response, 'candidates') and response.candidates:
+                response_text = ' '.join(part.text for part in response.candidates[0].content.parts)
+            else
+                raise ValueError("Unexpected response format from Gemini API")
+            
             # Clean the response in case it contains non json elements
             response_text = response.text.strip()
             
