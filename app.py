@@ -42,7 +42,7 @@ class JobAdAnalyzer:
 
         Note that in this specific case of Job Ad, the following topics should not be mentioned in the response: it is NOT necessary to include multiple currencies for salary, it is NOT necessary to include contact details, it is NOT necessary to include a company logo, it is NOT necessary to include information about the application process, it is NOT necessary for quantifiable targets to be included, it is NOT necessary for extensive information about the company to be included as long as some company information is included, it is NOT necessary for information about team structure and career progression to be included, it is NOT necessary for information about contract type to be included, it is NOT necessary for information about reporting structure to be included.
 
-        As long as the Job Ad is adequate in all 4 criteria for evaluation, it can be posted. A job ad only needs to be rewritten if it is missing a large amount of information and is severely lacking in detail.
+        As long as the Job Ad is adequate in all 4 criteria for evaluation, it can be posted. It is ok for company details to be more vague than other areas. The most important aspects are job responsibilities and skills needed. A job ad only needs to be rewritten if it is missing a large amount of information and is severely lacking in detail.
         
         Job Advertisement:
         {job_ad_text}
