@@ -57,6 +57,9 @@ class JobAdAnalyzer:
                 response_text = ' '.join(part.text for part in response.candidates[0].content.parts)
             else:
                 raise ValueError("Unexpected response format from Gemini API")
+
+            #debug
+            st.write("Extracted Response Text:", response_text)
             
             # Clean the response in case it contains non json elements
             response_text = response.text.strip()
