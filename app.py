@@ -43,7 +43,10 @@ class JobAdAnalyzer:
             "needs_rewrite": true/false, "reasoning": "Brief explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in"
         }}
 
-        It is essential that the response has the correct JSON formatting. If there are quotes in the reasonsing, remember to use escape characters, \, before the quotes as that is needed in JSON formatting.
+        Here is an example response:
+        {{ "needs_rewrite": false, "reasoning": "The job ad is clear and concise, providing a good overview of the job responsibilities and required skills. The language and tone are professional, and the job description is complete." }}
+
+        It is essential that the response has the correct JSON formatting. If there are quotes in the reasonsing, remember to use escape characters, \, before the quotes as that is needed in JSON formatting. Do not use any special characters such as bullet points in your JSON response.
         """
         
         try:
