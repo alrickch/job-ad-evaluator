@@ -40,7 +40,7 @@ class JobAdAnalyzer:
 
         Respond with a JSON object that follows this exact format, with no additional text:
         {{
-            "needs_rewrite": true/false, "reasoning": "Brief explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in"
+            "needs_rewrite": true/false, "reasoning": "Brief explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in, and what the recommended changes are."
         }}
 
         Here is an example response:
