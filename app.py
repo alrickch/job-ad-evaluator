@@ -45,11 +45,11 @@ class JobAdAnalyzer:
 
         Respond with a JSON object that follows this exact format, with no additional text:
         {{
-            "needs_rewrite": true/false, "reasoning": "Brief concise explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in, and what the recommended changes are."
+            "needs_rewrite": true/false, "reasoning": "Brief concise explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in, and what the recommended changes are. The response should include \n\n1. Clarity of job responsibilities: \n\n2. Specificity of required skills: \n\n3. Professional language and tone: \n\n4. Completeness of Job Description: "
         }}
 
         Here is an example response:
-        {{ "needs_rewrite": false, "reasoning": "The job ad is clear and concise, providing a good overview of the job responsibilities and required skills. The language and tone are professional, and the job description is complete." }}
+        {{ "needs_rewrite": true, "reasoning": "This job advertisement needs significant rewriting. While it lists a salary range, which is positive, it lacks clarity in several key areas. \n\n1. Clarity of job responsibilities: The job description is vague. Phrases like "株式報酬制度等の制度設計に関するアドバイス" are not easily understood by non-Japanese speakers and even Japanese speakers may need more detail. Specific tasks and responsibilities should be listed. \n\n2. Specificity of required skills: The required skills are too general. Instead of "株式報酬に関する業務経験や知見のある方", the ad should specify the number of years of experience, types of equity compensation plans worked with, and specific software or tools used. Similarly, the legal knowledge requirements need more detail. \n\n3. Professional language and tone: While professional in tone, the ad is almost entirely in Japanese except for a few English phrases, creating inconsistency. The entire ad should be in either Japanese or English, depending on the target audience. \n\n4. Completeness of job description: The ad is missing crucial information such as company culture, benefits beyond work-from-home options, and the application process. It also lacks a compelling reason for candidates to apply. \n\nRecommended changes include providing detailed job responsibilities, quantifiable skills requirements, consistent language, a more comprehensive benefits package description, and a strong call to action." }}
 
         It is essential that the response has the correct JSON formatting. If there are quotes in the reasonsing, remember to use escape characters, \, before the quotes as that is needed in JSON formatting. Do not use any special characters such as bullet points in your JSON response.
         """
@@ -143,7 +143,9 @@ def main():
             # Detailed results
             st.subheader("Detailed Analysis")
             for index, row in results_df.iterrows():
-                st.write(f"{row['reference_id']}<br>Rewrite: {row['needs_rewrite']}<br>Reasoning: {row['reasoning']}")
+                st.write(f"{row['reference_id']}")
+                st.write(f"Rewrite: {row['needs_rewrite']}")
+                st.write(f"Reasoning: {row['reasoning']}")
             
             # Download options
             csv = results_df.to_csv(index=False)
