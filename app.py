@@ -15,7 +15,7 @@ class JobAdAnalyzer:
             api_key (str): Google Gemini API key
         """
         genai.configure(api_key=api_key)
-        self.model = GenerativeModel('gemini-pro')
+        self.model = GenerativeModel('gemini-1.5-flash')
 
     def analyze_job_ad(self, job_ad_text):
         """
