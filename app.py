@@ -14,8 +14,13 @@ class JobAdAnalyzer:
         Args:
             api_key (str): Google Gemini API key
         """
+        #Model Config
+        model_config = {
+            "temperature": 0,
+        }
+        
         genai.configure(api_key=api_key)
-        self.model = GenerativeModel('gemini-1.5-flash')
+        self.model = GenerativeModel('gemini-1.5-flash', generation_config=model_config)
 
     def analyze_job_ad(self, job_ad_text):
         """
@@ -40,7 +45,7 @@ class JobAdAnalyzer:
 
         Respond with a JSON object that follows this exact format, with no additional text:
         {{
-            "needs_rewrite": true/false, "reasoning": "Brief explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in, and what the recommended changes are."
+            "needs_rewrite": true/false, "reasoning": "Brief concise explanation of why the job ad needs or does not need rewriting and which criteria the job ad does well or is lacking in, and what the recommended changes are."
         }}
 
         Here is an example response:
@@ -138,7 +143,7 @@ def main():
             # Detailed results
             st.subheader("Detailed Analysis")
             for index, row in results_df.iterrows():
-                st.write(f"{row['reference_id']}, \nRewrite: {row['needs_rewrite']}, \nReasoning: {row['reasoning']}")
+                st.write(f"{row['reference_id']}<br>Rewrite: {row['needs_rewrite']}<br>Reasoning: {row['reasoning']}")
             
             # Download options
             csv = results_df.to_csv(index=False)
